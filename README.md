@@ -14,7 +14,7 @@ creating automated test scripts for GUI and API level tests across projects
 
 ### Framework set up
 
-Fork / Clone repository from github or download zip and set
+Fork / Clone repository from github https://github.com/vijayakumari1291/oppenheimer.git or download zip and set
 it up in your local workspace.
 
 Convert project to maven and cucumber under configure option
