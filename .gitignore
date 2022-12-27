@@ -1,0 +1,26 @@
+### Eclipse
+.settings/
+.classpath
+.project
+
+
+### Maven ###
+target/
+
+# Exclude maven wrapper
+!/.mvn/wrapper/maven-wrapper.jar
+
+
+### Java ###
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+### Reports and logs ###
+ExtentReports/
+logs/
+
+/.metadata/
