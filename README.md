@@ -17,6 +17,8 @@ creating automated test scripts for GUI and API level tests across projects
 Fork / Clone repository from github or download zip and set
 it up in your local workspace.
 
+Convert project to maven and cucumber under configure option
+
 ### Compile Build and Run Tests
 
 Command Line
