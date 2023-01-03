@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.junit.Assert;
@@ -20,6 +21,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.opencsv.CSVReader;
 
+/**
+ * @author vijay
+ *
+ */
 /**
  * @author vijay
  *
@@ -154,6 +159,17 @@ public class Baseclass {
 		}
 		return isTaxReliefOnly2Decimal;
 
+	}
+
+	/**
+	 * This method is used to compare two Maps
+	 * 
+	 * @param mapA
+	 * @param mapB
+	 * @return
+	 */
+	public static boolean compareMaps(Map<String, String> mapA, Map<String, String> mapB) {
+		return mapA.entrySet().equals(mapB.entrySet());
 	}
 
 }

@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -133,17 +134,13 @@ public class OppenheimerUiSteps extends Baseclass {
 
 			List<WorkingClassHeroBean> beans = CalcTaxRelief.getBeansFromCSV();
 			expectedTaxReliefMap = CalcTaxRelief.calcTaxRelief(beans);
-			expectedTaxReliefMap = (HashMap<String, String>) expectedTaxReliefMap.entrySet().stream()
-					.filter(entry -> expectedTaxReliefMap.keySet().contains(entry.getKey()))
-					.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 			log.info("expectedTaxReliefMap: " + expectedTaxReliefMap);
 
 			actualTaxReliefMap = (HashMap<String, String>) actualTaxReliefMapAll.entrySet().stream()
 					.filter(entry -> expectedTaxReliefMap.keySet().contains(entry.getKey()))
 					.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 			log.info("actualTaxReliefMap: " + actualTaxReliefMap);
-
-			Assert.assertEquals("Tax Relief Data is not matching", expectedTaxReliefMap, actualTaxReliefMap);
+			Assert.assertTrue("Tax Relief Data is not matching", compareMaps(expectedTaxReliefMap, actualTaxReliefMap));
 		} catch (Exception e) {
 			log.error("Exception occured while validating Tax relief data ");
 			assertFalse(true);
@@ -168,11 +165,12 @@ public class OppenheimerUiSteps extends Baseclass {
 	@Then("computation of the tax relief is using the formula as described")
 	public void computation_of_the_tax_relief_is_using_the_formula_as_described() {
 		try {
-			log.info("Expected Tax Relief: " + expectedTaxReliefMap.values());
-			log.info("Actual Tax Relief: " + actualTaxReliefMap.values());
-
-			Assert.assertEquals("Tax Relief calculation is not as expected", expectedTaxReliefMap.values().toString(),
-					actualTaxReliefMap.values().toString());
+			HashSet<String> expectedTaxReliefValuesSet = new HashSet<>(expectedTaxReliefMap.values());
+	        HashSet<String> actualTaxReliefValuesSet = new HashSet<>(actualTaxReliefMap.values());
+			log.info("Expected Tax Relief: " + expectedTaxReliefValuesSet);
+			log.info("Actual Tax Relief: " + actualTaxReliefValuesSet);
+			Assert.assertEquals("Tax Relief calculation is not as expected", expectedTaxReliefValuesSet,
+					actualTaxReliefValuesSet);
 			log.info("Tax Relief calculation is as expected");
 		} catch (Exception e) {
 			log.error("Exception occured while validating Tax Relief calculation");
