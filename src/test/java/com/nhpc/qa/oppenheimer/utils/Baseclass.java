@@ -14,6 +14,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -37,6 +38,8 @@ public class Baseclass {
 	public static WebDriverWait wait;
 	public static CSVReader reader;
 
+	private static ChromeOptions options;
+
 	/**
 	 * This method is used for setting up driver
 	 * 
@@ -45,7 +48,9 @@ public class Baseclass {
 		String browser = System.getProperty("browser", "chrome");
 		log.info("browser type passed from command line: " + browser);
 		if (browser.contains("chrome")) {
-			driver = new ChromeDriver();
+			options = new ChromeOptions();
+			options.addArguments("--remote-allow-origins=*");
+			driver = new ChromeDriver(options);
 		} else if (browser.contains("firefox")) {
 			driver = new FirefoxDriver();
 		} else if (browser.contains("edge")) {
